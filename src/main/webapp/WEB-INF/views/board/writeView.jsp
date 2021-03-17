@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <html>
 	<head>
-		<script src = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	 	<title>게시판</title>
 	</head>
 	<script type="text/javascript">
@@ -35,9 +35,9 @@
 			</header>
 			<hr />
 			 
-			<nav>
-			  홈 - 글 작성
-			</nav>
+			<div>
+				<%@include file="nav.jsp" %>
+			</div>
 			<hr />
 			
 			<section id="container">
@@ -60,7 +60,7 @@
 								</td>
 							<tr>
 								<td>						
-									<button type="submit">작성</button>
+									<button class="write_btn" type="submit">작성</button>
 								</td>
 							</tr>			
 						</tbody>			

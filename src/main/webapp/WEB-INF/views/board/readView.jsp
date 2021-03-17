@@ -21,7 +21,7 @@
 			// 삭제
 			$(".delete_btn").on("click", function(){
 				
-				var deleteYN = confirm("삭제하시겠습니가?");
+				var deleteYN = confirm("삭제하시겠습니까?");
 				if(deleteYN == true){
 					
 				formObj.attr("action", "/board/delete");
@@ -47,9 +47,9 @@
 			</header>
 			<hr />
 			 
-			<nav>
-			  홈 - 글 작성
-			</nav>
+			<div>
+				<%@include file="nav.jsp" %>
+			</div>
 			<hr />
 			
 			<section id="container">
