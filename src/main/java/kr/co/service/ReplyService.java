@@ -12,4 +12,12 @@ public interface ReplyService {
 	// 댓글 작성
 	public void writeReply(ReplyVO vo) throws Exception;
 	
+	// 댓글 수정
+	public void updateReply(ReplyVO vo) throws Exception;
+	
+	// 댓글 작성
+	public void deleteReply(ReplyVO vo) throws Exception;
+	
+	// 댓글 작성
+	public ReplyVO selectReply(int rno) throws Exception;
 }
