@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.service.MemberService;
@@ -38,7 +39,7 @@ public class MemberController {
 		
 		service.register(vo);
 		
-		return null;
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -106,5 +107,13 @@ public class MemberController {
 		service.memberDelete(vo);
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	// 패스워드 체크
+	@ResponseBody
+	@RequestMapping(value="/passChk", method = RequestMethod.POST)
+	public int passChk(MemberVO vo) throws Exception {
+		int result = service.passChk(vo);
+		return result;
 	}
 }
