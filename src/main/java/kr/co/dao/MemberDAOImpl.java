@@ -33,6 +33,13 @@ public class MemberDAOImpl implements MemberDAO {
 		sql.delete("memberMapper.memberDelete", vo);
 	}
 
+	// 아이디 중복 체크
+	@Override
+	public int idChk(MemberVO vo) throws Exception {
+		int result = sql.selectOne("memberMapper.idChk", vo);
+		return result;
+	}
+	
 	// 패스워드 체크
 	@Override
 	public int passChk(MemberVO vo) throws Exception {
