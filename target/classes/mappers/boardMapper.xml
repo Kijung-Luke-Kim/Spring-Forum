@@ -3,38 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
-   <!-- 게시판 글 작성 -->
-   <insert id="insert">
-	   INSERT INTO MP_BOARD(    BNO 
-	   					      , TITLE 
-	   					      , CONTENT 
-	   					      , WRITER  )
-	                 VALUES(    MP_BOARD_SEQ.NEXTVAL 
-	                 		  , #{title}
-	                 		  , #{content}
-	                 		  , #{writer}  )
+	<!-- 게시판 글 작성 -->
+	<insert id="insert" parameterType="kr.co.vo.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+	    <selectKey keyProperty="bno" resultType="int" order="BEFORE">
+	    	SELECT MP_BOARD_SEQ.NEXTVAL FROM DUAL
+	    </selectKey>
+	    INSERT INTO MP_BOARD(    BNO 
+	   					       , TITLE 
+	   					       , CONTENT 
+	   					       , WRITER  )
+	                  VALUES(    #{bno}
+	                 		   , #{title}
+	                 		   , #{content}
+	                 		   , #{writer}  )
    
-   </insert>
+    </insert>
    
-   <select id="list" resultType="kr.co.vo.BoardVO">
-		SELECT   BNO
-			   , TITLE
-			   , WRITER
-			   , REGDATE
-		  FROM MP_BOARD
-		  ORDER BY BNO DESC
-	</select>
-	
-	<select id="read" parameterType="int" resultType="kr.co.vo.BoardVO">
-		SELECT	BNO
-			  , TITLE
-			  , CONTENT
-			  , WRITER
-			  , REGDATE
-		 FROM MP_BOARD
-		 WHERE BNO = #{bno}
-	</select>
-	
 	<select id="listPage" resultType="kr.co.vo.BoardVO" parameterType="kr.co.vo.SearchCriteria">
 		SELECT  BNO, 
 		        TITLE, 
@@ -73,6 +57,16 @@
 		</if>
 	</sql>
 	
+	<select id="read" parameterType="int" resultType="kr.co.vo.BoardVO">
+		SELECT   BNO
+			   , TITLE
+			   , CONTENT
+			   , WRITER
+			   , REGDATE
+		  FROM MP_BOARD
+		 WHERE BNO = #{bno}
+	</select>
+	
 	<update id="update" parameterType="kr.co.vo.BoardVO">
 		UPDATE MP_BOARD
 		   SET TITLE    =   #{title},
@@ -85,6 +79,20 @@
 		  FROM MP_BOARD
 		 WHERE BNO = #{bno}
 	</delete>
-	
-	
+   
+    <insert id="insertFile" parameterType="hashMap">
+		INSERT INTO MP_FILE(
+			FILE_NO,
+			BNO,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+			SEQ_MP_FILE_NO.NEXTVAL,
+			#{BNO},
+			#{ORG_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE}
+		)
+    </insert>
 </mapper>
