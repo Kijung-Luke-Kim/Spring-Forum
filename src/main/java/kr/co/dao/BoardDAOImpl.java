@@ -88,4 +88,10 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		sqlSession.update("boardMapper.updateFile", map);
 	}
+	
+	@Override
+	public void boardHit(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update("boardMapper.boardHit", bno);
+	}
 }

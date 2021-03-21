@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.dao.BoardDAO;
@@ -50,10 +52,11 @@ public class BoardServiceImpl implements BoardService {
 		return dao.listCount(scri);
 	}
 	
-	// 게시물 목록 조회
+	// 게시물 조회
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public BoardVO read(int bno) throws Exception {
-
+		dao.boardHit(bno);
 		return dao.read(bno);
 	}
 	
