@@ -1,6 +1,7 @@
 package kr.co.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -50,33 +51,35 @@ public class BoardController {
 	}
 	
 	// 게시판 목록 조회
-		@RequestMapping(value = "/list", method = RequestMethod.GET)
-		public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception{
-			logger.info("list");
-			
-			model.addAttribute("list", service.list(scri));
-			
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(scri);
-			pageMaker.setTotalCount(service.listCount(scri));
-			
-			model.addAttribute("pageMaker", pageMaker);
-			
-			return "board/list";
-			
-		}
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception{
+		logger.info("list");
+		
+		model.addAttribute("list", service.list(scri));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.listCount(scri));
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "board/list";
+		
+	}
 	
 	// 게시판 조회
 	@RequestMapping(value = "/readView", method = RequestMethod.GET)
-	public String read(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
+	public String read(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		logger.info("read");
-		
+
 		model.addAttribute("read", service.read(boardVO.getBno()));
 		model.addAttribute("scri", scri);
-		
+
 		List<ReplyVO> replyList = replyService.readReply(boardVO.getBno());
 		model.addAttribute("replyList", replyList);
-		
+
+		List<Map<String, Object>> fileList = service.selectFileList(boardVO.getBno());
+		model.addAttribute("file", fileList);
 		return "board/readView";
 	}
 	
