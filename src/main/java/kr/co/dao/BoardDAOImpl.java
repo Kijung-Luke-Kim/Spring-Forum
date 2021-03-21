@@ -81,4 +81,11 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("boardMapper.selectFileInfo", map);
 	}
+	
+	@Override
+	public void updateFile(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		
+		sqlSession.update("boardMapper.updateFile", map);
+	}
 }
